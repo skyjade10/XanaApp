@@ -32,6 +32,8 @@ export default async ({ req, res, log, error }) => {
       response.documents.map((item,index) => {
         log(item)
       })
+
+      return res.text("excuted")
     }
 
   } catch(err) {
