@@ -9,9 +9,10 @@ export default async ({ req, res, log, error }) => {
 
     .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-    .setKey(process.env.MESSAGE_API_KEY);
+    .setKey(process.env.MESSAGE_API_KEY)
     
-  const db = new Databases(client);
+  const db = new Databases(client)
+  const users = new Users(client)
   try {
 
     const databaseId = process.env.XANA_DATABASE_ID
