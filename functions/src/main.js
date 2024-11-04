@@ -30,7 +30,7 @@ export default async ({ req, res, log, error }) => {
         query
       )
 
-      log(req)
+      log(JSON.stringify(req.headers))
 
       response.documents.map((item,index) => {
         log(item)
