@@ -30,7 +30,7 @@ export default async ({ req, res, log, error }) => {
         query
       )
 
-      log(JSON.stringify(req.headers))
+      log(JSON.stringify(req.headers.x-appwrite-user-id))
 
       response.documents.map((item,index) => {
         log(item)
