@@ -33,15 +33,16 @@ export default async ({ req, res, log, error }) => {
         log(item)
       })
 
-      return res.text("data executed")
+      return res.json(response.documents)
+    }else{
+      return res.text("data not found")
     }
 
-    return res.text("data not found")
 
   } catch(err) {
     error("Could not list users: " + err.message);
   }
 
-  return res.json({"msg": "data failed"})
+  return res.text("failed")
 
 };
