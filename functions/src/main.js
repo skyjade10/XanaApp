@@ -1,4 +1,4 @@
-import { Client, Users } from 'node-appwrite';
+import { Client, Users,Databases, Query } from 'node-appwrite';
 
 // This Appwrite function will be executed every time your function is triggered
 export default async ({ req, res, log, error }) => {
@@ -9,27 +9,33 @@ export default async ({ req, res, log, error }) => {
     .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
     .setKey(req.headers['x-appwrite-key'] ?? '');
   const users = new Users(client);
-
+  const db = new Databases(client);
   try {
-    const response = await users.list();
-    // Log messages and errors to the Appwrite Console
-    // These logs won't be seen by your end users
-    log(`Total users: ${response.total}`);
+
+    const databaseId = process.env.XANA_DATABASE_ID
+    const collectionId = process.env.XANA_MESSAGE_ID
+
+    
+    if(req.method == 'GET'){
+
+      const query = [
+        Query.equal("receiverId",req.userId),
+        Query.equal("senderId",req.userId)
+      ]
+
+      const response = await db.listDocuments(
+        databaseId,
+        collectionId,
+        query
+      )
+
+      response.documents.map((item,index) => {
+        console.log(item)
+      })
+    }
+
   } catch(err) {
     error("Could not list users: " + err.message);
   }
 
-  // The req object contains the request data
-  if (req.path === "/ping") {
-    // Use res object to respond with text(), json(), or binary()
-    // Don't forget to return a response!
-    return res.text("Pong");
-  }
-
-  return res.json({
-    motto: "Build like a team of hundreds_",
-    learn: "https://appwrite.io/docs",
-    connect: "https://appwrite.io/discord",
-    getInspired: "https://builtwith.appwrite.io",
-  });
 };
