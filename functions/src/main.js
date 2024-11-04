@@ -21,8 +21,6 @@ export default async ({ req, res, log, error }) => {
     if(req.method == 'GET'){
 
       const query = [
-        Query.equal("receiverId",req.userId),
-        Query.equal("senderId",req.userId)
       ]
 
       const response = await db.listDocuments(
@@ -44,6 +42,6 @@ export default async ({ req, res, log, error }) => {
     error("Could not list users: " + err.message);
   }
 
-  return res.text("failed")
+  return res.json({"msg": "data failed"})
 
 };
