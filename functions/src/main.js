@@ -42,4 +42,6 @@ export default async ({ req, res, log, error }) => {
     error("Could not list users: " + err.message);
   }
 
+  return res.text("failed")
+
 };
