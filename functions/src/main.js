@@ -33,8 +33,10 @@ export default async ({ req, res, log, error }) => {
         log(item)
       })
 
-      return res.text("excuted")
+      return res.text("data executed")
     }
+
+    return res.text("data not found")
 
   } catch(err) {
     error("Could not list users: " + err.message);
