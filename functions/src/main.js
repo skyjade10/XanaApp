@@ -30,7 +30,7 @@ export default async ({ req, res, log, error }) => {
       )
 
       response.documents.map((item,index) => {
-        console.log(item)
+        log(item)
       })
     }
 
