@@ -21,6 +21,7 @@ export default async ({ req, res, log, error }) => {
     if(req.method == 'GET'){
 
       const query = [
+        
       ]
 
       const response = await db.listDocuments(
@@ -29,20 +30,21 @@ export default async ({ req, res, log, error }) => {
         query
       )
 
+      log(req.header)
+
       response.documents.map((item,index) => {
         log(item)
       })
 
-      return res.json(response.documents)
-    }else{
-      return res.text("data not found")
+      return res.text("data executed")
     }
 
+    return res.text("data not found")
 
   } catch(err) {
     error("Could not list users: " + err.message);
   }
 
-  return res.text("failed")
+  return res.json({"msg": "data failed"})
 
 };
